@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html >
+<head class="whole">
+  <div id="mapid"></div>>
+  <title>Natural Disasters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.css"/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/bundle.min.js"></script>
+
+   <!-- CSS and JS files for Search Box -->
+   <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+   <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datasource@0.1.0"></script>
+
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+
+  <!-- for toggle  -->
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link rel="stylesheet" href="css/leaflet.awesome-markers.css">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script> 
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.beforeafter-map-0.11.js"></script>
+
+<!-- font-awesome  -->
+<link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+<link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+<!-- for chart -->
+
+<script src="https://code.jscharting.com/2.9.0/jscharting.js"></script>
+
+  <!-- Load Leaflet code library - see updates at http://leafletjs.com/download.html -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- Load jQuery and PapaParse to read data from a CSV file -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+  
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
+
+<script src="https://randojs.com/1.0.0.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+<script>alert(window.FontAwesome.config)</script>
+
+  <!-- Position the map with Cascading Style Sheet (CSS) -->
+  <style>
+    body { margin:0; padding:0; }
+    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  </style>
+
+</head>
+
+<body>
+
+
+  <div id="map"></div>
+  <div id="after" class="map"></div>
+
+  <div id="chartDiv" ></div>
+
+  <button id="refreshButton" onclick="togglePoints();">Earthquakes</button>
+
+  <ul id="refreshButton" >
+    <li><a class="restaurants" href="#">restaurants</a></li>
+    <li><a class="sport" href="#">sport</a></li>
+    <li><a class="sights" href="#">sights</a></li>
+</ul>
+
+  <!-- <input type="button" id="button" value = "button" style= "color:white" onclick="setColor('button', '#101010')";/> -->
+
+  <p id="txt">Natural Disasters from 1950-2018</p>
+
+<div class="button-section">
+  <button id="button" class="btn1">Hide Title</button><button id="button2" class="btn2">Show Title</button>
+</div>
+
+
+
+
+  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript">
+
+    var colors = ["Between 2000 and 2012, natural disasters caused $1.7 trillion in damage and affected 2.9 billion people","Worldwide in 2011, there were 154 floods, 16 droughts, and 15 cases of extreme temperature.","2012 marked the third consecutive year of worldwide natural disaster damage exceeding $100 billion. 2011 reached a record high of $371 billion","“Earthquakes” are disasters that cause associated destruction of man-made structures and instigate other natural disasters such as tsunamis, avalanches, and landslides"];
+    // Fun Facts from: https://www.dosomething.org/us/facts/11-facts-about-disasters
+
+    var randColor = colors[Math.floor(Math.random() * colors.length)];
+    
+        
+        // function timestrt() { 
+        //   setInterval(() => (document.getElementById("cans").innerHTML=randColor),2000);
+        // }
+        
+        //   function display() {
+        //  document.getElementById("cans").innerHTML=randColor;
+        //  }
+  
+        function timestrt() {
+          document.getElementById("cans").innerHTML=randColor;
+        }
+  
+        window.setInterval(timestrt, 1000);
+        
+        </script>
+
+<div id="word">
+  <text><b>Disaster Fact:</b></text>
+  <div id="cans">
+  </div>
+</div>
+    <!-- <div id="word">
+      <p><b>Disaster Fact:</b></p>
+      <div id="cans">
+      </div>
+    </div>
+    <table id="legend">
+      <tr id="l-item">
+          <td id="item" style="background-color: orange;"></td>
+          <td><h5>Earthquake</h5></td>
+      </tr>
+      <tr id="l-item">
+          <td id="item" style="background-color: blue;"></td>
+          <td><h5>Storm</h5></td>
+      </tr>
+      <tr id="l-item">
+        <td id="item" style="background-color: red;"></td>
+        <td><h5>Extreme Temp</h5></td>
+    </tr>
+    <tr id="l-item">
+      <td id="item" style="background-color: green;"></td>
+      <td><h5>Drought</h5></td>
+  </tr>
+  <tr id="l-item">
+    <td id="item" style="background-color: pink;"></td>
+    <td><h5>Landslide</h5></td>
+</tr>
+<tr id="l-item">
+  <td id="item" style="background-color: purple;"></td>
+  <td><h5>Volcanic Activity</h5></td>
+</tr> -->
+
+      <!-- etc -->
+  </table> -->
+
+  <div class="chart">HELLO</div>
+</body>
+</html>
