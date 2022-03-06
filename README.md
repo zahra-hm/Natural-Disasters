@@ -2,7 +2,7 @@
 
 This applications is a web map hat showcases various natural disasters around the world, over a 68 year time span. 
 
-# [(dark-disaster.png)]
+# [https://github.com/zahra-hm/Natural-Disasters/blob/main/dark-disaster.png]
 
 
 # Technical Specifications
